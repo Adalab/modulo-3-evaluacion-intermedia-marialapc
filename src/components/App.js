@@ -9,12 +9,17 @@ function App() {
   name:"",
   counselor:"",
   speciality:"",
+  id:"",
   })
  
   // FUNCIONES HANDLER
 const handleNewAdalaber = (ev)=>{
   setNewAdalaber({...newAdalaber,[ev.target.id]: ev.target.value })
-}
+};
+const handleClick = (event) => {
+  event.preventDefault();
+setData([...data, newAdalaber]);
+};
   // FUNCIONES Y VARIABLES QUE AYUDEN A RENDERIZAR HTML
   const htmlData = data.map((adalaber) => {
     return (
@@ -39,7 +44,7 @@ const handleNewAdalaber = (ev)=>{
         <input type="text" id="counselor" onInput={handleNewAdalaber}></input>
         <label>Especialidad:</label>
         <input type="text" id="speciality" onInput={handleNewAdalaber}></input>
-        <button>Añadir una nueva Adalaber</button>
+        <button onClick={handleClick}>Añadir una nueva Adalaber</button>
       </form>
       <table className="table">
         <thead>
