@@ -1,53 +1,43 @@
 import "../styles/App.scss";
-import contacts from '../data/contacts.json';
-import { useState } from 'react';
+import contacts from "../data/contacts.json";
+import { useState } from "react";
 
 function App() {
   // VARIABLES ESTADO
-  console.log(contacts)
-  const [data, setData] = useState(contacts);
+  const [data, setData] = useState(contacts.results);
+  console.log(data);
+  console.log(contacts);
   // FUNCIONES HANDLER
 
   // FUNCIONES Y VARIABLES QUE AYUDEN A RENDERIZAR HTML
-  const htmlData = data
+  const htmlData = data.map((adalaber) => {
+    return (
+    <tr key={adalaber.id}>
+        <td>{adalaber.name}</td>
+        <td>{adalaber.counselor}</td>
+        <td>{adalaber.speciality}</td>
+   </tr>
+    );
+  });
 
   // HTML EN EL RETURN
 
   return (
     <>
- <h1>Adalabers</h1>
+      <h1>Adalabers</h1>
       <table className="table">
-      {/* fila de la cabecera */}
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Tutora</th>
-          <th>Especialidad</th>
-        </tr>
-      </thead>
-     {/* // fin cabecera */}
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Tutora</th>
+            <th>Especialidad</th>
+          </tr>
+        </thead>
         <tbody>
-        {/* <!-- Primera fila --> */}
- <tr>
- <td>MariCarmen</td>
- <td>Yanelis</td>
- <td>Python</td>
- </tr>
- {/* <!-- Segunda fila --> */}
- <tr>
- <td>Amparo</td>
- <td>Dayana</td>
- <td>IA</td>
- </tr>
- {/* <!-- Tercera fila --> */}
- <tr>
- <td>Escandia</td>
- <td>Iván</td>
- <td>3D graphics</td>
- </tr>
- </tbody>
-  </table>
-  </>
+         {htmlData}
+          </tbody>
+      </table>
+    </>
   );
 }
 
