@@ -5,10 +5,16 @@ import { useState } from "react";
 function App() {
   // VARIABLES ESTADO
   const [data, setData] = useState(contacts.results);
-  console.log(data);
-  console.log(contacts);
+  const [newAdalaber, setNewAdalaber] = useState({
+  name:"",
+  counselor:"",
+  speciality:"",
+  })
+ 
   // FUNCIONES HANDLER
-
+const handleNewAdalaber = (ev)=>{
+  setNewAdalaber({...newAdalaber,[ev.target.id]: ev.target.value })
+}
   // FUNCIONES Y VARIABLES QUE AYUDEN A RENDERIZAR HTML
   const htmlData = data.map((adalaber) => {
     return (
@@ -25,6 +31,16 @@ function App() {
   return (
     <>
       <h1>Adalabers</h1>
+      <form>
+        <h2>Añadir una adalaber</h2>
+        <label> Nombre:</label>
+        <input type="text" id="name" onInput={handleNewAdalaber}></input>
+        <label>Tutora:</label>
+        <input type="text" id="counselor" onInput={handleNewAdalaber}></input>
+        <label>Especialidad:</label>
+        <input type="text" id="speciality" onInput={handleNewAdalaber}></input>
+        <button>Añadir una nueva Adalaber</button>
+      </form>
       <table className="table">
         <thead>
           <tr>
@@ -34,6 +50,7 @@ function App() {
           </tr>
         </thead>
         <tbody>
+
          {htmlData}
           </tbody>
       </table>
