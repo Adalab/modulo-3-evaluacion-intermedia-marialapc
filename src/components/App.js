@@ -1,17 +1,21 @@
 import "../styles/App.scss";
 import contacts from '../data/contacts.json';
+import { useState } from 'react';
 
 function App() {
   // VARIABLES ESTADO
-
+  console.log(contacts)
+  const [data, setData] = useState(contacts);
   // FUNCIONES HANDLER
 
   // FUNCIONES Y VARIABLES QUE AYUDEN A RENDERIZAR HTML
+  const htmlData = data
 
   // HTML EN EL RETURN
 
   return (
     <>
+ <h1>Adalabers</h1>
       <table className="table">
       {/* fila de la cabecera */}
       <thead>
@@ -21,8 +25,7 @@ function App() {
           <th>Especialidad</th>
         </tr>
       </thead>
-   
-    {/* // fin cabecera */}
+     {/* // fin cabecera */}
         <tbody>
         {/* <!-- Primera fila --> */}
  <tr>
