@@ -2,6 +2,7 @@ import data from "../data/contacts.json";
 import { useState } from "react";
 
 function App() {
+  //variables estado
   const [allAdalabers, setAllAdalabers] = useState(data);
   const [newAdalaber, setNewAdalaber] = useState(
     {
@@ -10,24 +11,34 @@ function App() {
       speciality:'',
     }
   );
+  const [counselorFilter, SetCounselorFilter] = useState('');
 
+//funciones handle
   const handleChangeInput = (ev) => {
-    setNewAdalaber({ ...newAdalaber,[ev.target.id]: ev.target.value,
+    setNewAdalaber({ ...newAdalaber,[ev.target.name]: ev.target.value,
     })
   };
 
   const handleClickNewAdalaber = (ev) => {
-    allAdalabers.push(newAdalaber);
-    setAllAdalabers( [...allAdalabers, newAdalaber]);
+   setAllAdalabers([...allAdalabers, newAdalaber]); //push
+   setNewAdalaber({
+    name:'',
+    counselor:'',
+    speciality: '',
+   });
    
   };
 
 const handleSubmit = (ev) => {
 ev.preventDefault();
 };
+const handleChangeCounselorFilter = (ev) =>{
+SetCounselorFilter(ev.target.value);
+};
 
-  const renderList = () => {
-    return allAdalabers.map((eachAdalaber) => {
+// funciones render
+  const renderList = (list) => {
+    return list.map((eachAdalaber) => {
       return (
         <tr key={eachAdalaber.name}>
           <td>{eachAdalaber.name}</td>
@@ -38,12 +49,28 @@ ev.preventDefault();
     });
   };
 
+  const filteredAdalabers = allAdalabers.filter( (eachAdalaber) =>{
+    return  counselorFilter === '' || eachAdalaber.counselor === counselorFilter;
+  });
+  
   return (
     <>
       <header>
         <h1>Adalabers</h1>
       </header>
       <main>
+        <form>
+          <label>
+            Escoge una tutora:
+            <select onChange={handleChangeCounselorFilter} value={counselorFilter}>
+              <option value="">Todos</option>
+              <option value="Yanelis">Yanelis</option>
+              <option value="Dayana">Dayana</option>
+              <option value="Iván">Iván</option>
+            </select>
+          </label>
+
+        </form>
         <section>
           <table className="table">
             <thead>
@@ -54,7 +81,7 @@ ev.preventDefault();
               </tr>
             </thead>
 
-            <tbody>{renderList(allAdalabers)}</tbody>
+            <tbody>{renderList(filteredAdalabers)}</tbody>
           </table>
         </section>
         <h2>Añadir una Adalaber</h2>
