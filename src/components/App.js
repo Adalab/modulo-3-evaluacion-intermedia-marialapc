@@ -3,11 +3,33 @@ import { useState } from "react";
 
 function App() {
   const [allAdalabers, setAllAdalabers] = useState(data);
+  const [newAdalaber, setNewAdalaber] = useState(
+    {
+      name: '',
+      counselor: '',
+      speciality:'',
+    }
+  );
+
+  const handleChangeInput = (ev) => {
+    setNewAdalaber({ ...newAdalaber,[ev.target.id]: ev.target.value,
+    })
+  };
+
+  const handleClickNewAdalaber = (ev) => {
+    allAdalabers.push(newAdalaber);
+    setAllAdalabers( [...allAdalabers, newAdalaber]);
+   
+  };
+
+const handleSubmit = (ev) => {
+ev.preventDefault();
+};
 
   const renderList = () => {
     return allAdalabers.map((eachAdalaber) => {
       return (
-        <tr key={eachAdalaber.id}>
+        <tr key={eachAdalaber.name}>
           <td>{eachAdalaber.name}</td>
           <td>{eachAdalaber.counselor}</td>
           <td>{eachAdalaber.speciality}</td>
@@ -36,21 +58,21 @@ function App() {
           </table>
         </section>
         <h2>Añadir una Adalaber</h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <label htmlFor="newName">
             Nombre:
-            <input type="text" name="name" id="newName"/>
+            <input onChange={handleChangeInput} type="text" name="name" id="newName" value={newAdalaber.name}/>
           </label>
           <label htmlFor="newCounselor">
             Tutora:
-            <input type="text" name="counselor" id="newCounselor" />
+            <input onChange={handleChangeInput} type="text" name="counselor" id="newCounselor"value={newAdalaber.counselor} />
           </label>
           <label htmlFor="newSpeciality">
             Especialidad:
-            <input type="text" name="speciality" id="newSpeciality" />
+            <input onChange={handleChangeInput} type="text" name="speciality" id="newSpeciality"value={newAdalaber.speciality} />
           </label>
           <label>
-            <button>Añadir una nueva Adalaber</button>
+            <button onClick={handleClickNewAdalaber}>Añadir una nueva Adalaber</button>
           </label>
         </form>
       </main>
